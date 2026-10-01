@@ -1,0 +1,15 @@
+<options>
+    <option type="boolean" name="setPurifierEnabled" value="false" />
+</options>
+
+<oldText>
+<p>Hi</p><img src="https://cdn.example.com/a.png" srcset="https://cdn.example.com/a-2x.png 2x" width="10">
+</oldText>
+
+<newText>
+<p>Hi there</p><img width="20" srcset="https://cdn.example.com/a-2x.png 2x" src="https://cdn.example.com/a.png">
+</newText>
+
+<expected>
+<p>Hi<ins class="diffins"> there</ins></p><img width="20" srcset="https://cdn.example.com/a-2x.png 2x" src="https://cdn.example.com/a.png">
+</expected>
