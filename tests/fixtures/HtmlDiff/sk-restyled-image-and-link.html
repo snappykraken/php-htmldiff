@@ -1,0 +1,15 @@
+<options>
+    <option type="boolean" name="setPurifierEnabled" value="false" />
+</options>
+
+<oldText>
+<p>Hello world</p><img alt="" src="https://cdn.example.com/a.png" style="max-width: 6000px;" title=""/><a href="https://example.com/rsvp" style="color: #000;"><img src="https://cdn.example.com/b.png" style="width: 100%;"></a>
+</oldText>
+
+<newText>
+<p>Hello there world</p><img alt="" src="https://cdn.example.com/a.png" style="max-width: 287.15px;" title=""><a href="https://example.com/rsvp" target="_blank"><img src="https://cdn.example.com/b.png" style="width: 50%;"></a>
+</newText>
+
+<expected>
+<p>Hello<ins class="diffins"> there</ins> world</p><img alt="" src="https://cdn.example.com/a.png" style="max-width: 287.15px;" title=""><a href="https://example.com/rsvp" target="_blank"><img src="https://cdn.example.com/b.png" style="width: 50%;"></a>
+</expected>

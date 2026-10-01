@@ -403,7 +403,8 @@ class HtmlDiff extends AbstractDiff
      */
     protected function diffPicture($oldText, $newText)
     {
-        if ($oldText !== $newText) {
+        // Compare the images the picture shows, not its raw HTML, so a restyled picture isn't a swap
+        if ($this->getPictureSources($oldText) !== $this->getPictureSources($newText)) {
             return sprintf(
                 '%s%s',
                 $this->wrapText($oldText, 'del', 'diffmod'),
@@ -417,6 +418,12 @@ class HtmlDiff extends AbstractDiff
     {
         $oldAttribute = $this->getAttributeFromTag($oldText, $attribute);
         $newAttribute = $this->getAttributeFromTag($newText, $attribute);
+
+        // An image with the same src still shows a different picture when its srcset changed
+        if ($element === 'img') {
+            $oldAttribute .= ' ' . $this->getAttributeFromTag($oldText, 'srcset');
+            $newAttribute .= ' ' . $this->getAttributeFromTag($newText, 'srcset');
+        }
 
         if ($oldAttribute !== $newAttribute) {
             $diffClass = sprintf('diffmod diff%s diff%s', $element, $attribute);
@@ -457,12 +464,42 @@ class HtmlDiff extends AbstractDiff
      */
     protected function getAttributeFromTag($text, $attribute)
     {
-        $matches = array();
-        if (preg_match(sprintf('/<[^>]*\b%s\s*=\s*([\'"])(.*)\1[^>]*>/iu', $attribute), $text, $matches)) {
-            return htmlspecialchars_decode($matches[2]);
+        // Only read the first tag. A quoted value may contain ">", so it is matched as a whole.
+        if (!preg_match('/^<[\w:-]*+((?:[^>"\']++|"[^"]*+"|\'[^\']*+\')*+)>/u', $text, $tag)) {
+            return null;
         }
 
-        return;
+        // Match each attribute with its whole quoted value, so an attribute that comes after this
+        // one, or "src=" written inside another attribute's value, is never read as this one
+        preg_match_all('/(?:[\s\/]|(?<=["\']))([\w:-]+)\s*=\s*(?|"([^"]*+)"|\'([^\']*+)\')/u', $tag[1], $attributes, PREG_SET_ORDER);
+
+        foreach ($attributes as $match) {
+            if (strcasecmp($match[1], $attribute) === 0) {
+                return htmlspecialchars_decode($match[2]);
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * The src and srcset of each image and source in a picture, in order.
+     *
+     * @param string $text
+     *
+     * @return array
+     */
+    protected function getPictureSources($text)
+    {
+        preg_match_all('/<(?:img|source)(?=[\s\/>])(?:[^>"\']++|"[^"]*+"|\'[^\']*+\')*+>/iu', $text, $tags);
+
+        $sources = array();
+
+        foreach ($tags[0] as $tag) {
+            $sources[] = array($this->getAttributeFromTag($tag, 'src'), $this->getAttributeFromTag($tag, 'srcset'));
+        }
+
+        return $sources;
     }
 
     /**
