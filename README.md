@@ -9,6 +9,10 @@ php-htmldiff
 
 php-htmldiff is a library for comparing two HTML files/snippets and highlighting the differences using simple HTML.
 
+> This is the Snappy Kraken fork of [caxy/php-htmldiff](https://github.com/caxy/php-htmldiff), published as
+> `snappykraken/php-htmldiff`. It replaces `caxy/php-htmldiff`, and the PHP namespace stays `Caxy\HtmlDiff`.
+> It compares images and links by their `src`/`srcset`/`href` values only, so restyling one is not flagged as a swap.
+
 This HTML Diff implementation was forked from [rashid2538/php-htmldiff][upstream] and has been modified with new features,
 bug fixes, and enhancements to the original code.
 
@@ -21,10 +25,10 @@ https://php-htmldiff.caxy.com/
 ## Installation
 
 The recommended way to install php-htmldiff is through [Composer][composer].
-Require the [caxy/php-htmldiff][badge_packagist] package by running following command:
+Require the `snappykraken/php-htmldiff` package by running following command:
 
 ```sh
-composer require caxy/php-htmldiff
+composer require snappykraken/php-htmldiff
 ```
 
 This will resolve the latest stable version.
