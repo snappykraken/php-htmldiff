@@ -1,12 +1,12 @@
 {
-    "name": "caxy/php-htmldiff",
+    "name": "snappykraken/php-htmldiff",
     "type": "library",
-    "description": "A library for comparing two HTML files/snippets and highlighting the differences using simple HTML.",
+    "description": "Snappy Kraken fork of caxy/php-htmldiff: compares two HTML files/snippets and highlights the differences using simple HTML.",
     "keywords": [
         "diff",
         "html"
     ],
-    "homepage": "https://github.com/caxy/php-htmldiff",
+    "homepage": "https://github.com/snappykraken/php-htmldiff",
     "license": "GPL-2.0",
     "authors": [
         {
@@ -16,7 +16,7 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/caxy/php-htmldiff/issues"
+        "issues": "https://github.com/snappykraken/php-htmldiff/issues"
     },
     "require": {
         "php": ">=7.3",
@@ -29,6 +29,9 @@
         "doctrine/cache": "~1.0",
         "squizlabs/php_codesniffer": "^3.7"
     },
+    "replace": {
+        "caxy/php-htmldiff": "self.version"
+    },
     "suggest": {
         "doctrine/cache": "Used for caching the calculated diffs using a Doctrine Cache Provider"
     },
@@ -40,7 +43,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.1.x-dev"
+            "dev-master": "0.2.x-dev"
         }
     }
 }

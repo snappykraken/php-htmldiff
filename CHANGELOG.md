@@ -1,5 +1,10 @@
 # Change Log
 
+## v0.2.0 (Snappy Kraken fork)
+
+- Renamed the package to `snappykraken/php-htmldiff`. It replaces `caxy/php-htmldiff`; the namespace is unchanged.
+- Images and links are compared by their `src`/`srcset`/`href` values only, so a restyled image, link or picture is no longer flagged as swapped (SK-4367).
+
 ## [v0.1.14](https://github.com/caxy/php-htmldiff/tree/v0.1.13) (2022-01-19)
 [Full Changelog](https://github.com/caxy/php-htmldiff/compare/v0.1.13...v0.1.14)
 
