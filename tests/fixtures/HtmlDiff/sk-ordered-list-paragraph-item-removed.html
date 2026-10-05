@@ -1,0 +1,15 @@
+<options>
+    <option type="boolean" name="setPurifierEnabled" value="false" />
+</options>
+
+<oldText>
+<ol><li><p>First source.</p></li><li><p>Second source.</p></li><li><p>Third source.</p></li></ol>
+</oldText>
+
+<newText>
+<ol><li><p>First source.</p></li><li><p>Third source.</p></li></ol>
+</newText>
+
+<expected>
+<ol class="diff-list"><li class="removed"><del><p>First source.</p></del></li><li class="replacement"><p><del class="diffmod">Second</del><ins class="diffmod">First</ins> source.</p></li><li class="replacement"><p>Third source.</p></li></ol>
+</expected>

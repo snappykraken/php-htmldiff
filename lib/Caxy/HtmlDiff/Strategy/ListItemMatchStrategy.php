@@ -51,6 +51,12 @@ class ListItemMatchStrategy implements MatchStrategyInterface
      */
     public function isMatch($a, $b)
     {
+        // Identical items always match, including two empty ones, which every similarity check
+        // below scores as 0%
+        if ($a === $b) {
+            return true;
+        }
+
         $percentage = null;
 
         // Strip tags and check similarity
